@@ -9,6 +9,28 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_main" tools:context=".MainActivity">
 
+    <TextView
+        android:id="@+id/gpsStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="GPS"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/mLatitudeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="mLatitudeText"
+        android:layout_below="@+id/gpsStatus"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/mLongitudeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="mLongitudeText"
+        android:layout_below="@+id/mLatitudeText"
+        android:layout_gravity="center_horizontal" />
 
 
     <TextView
@@ -16,13 +38,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="XML文件讀取"
+        android:layout_below="@+id/mLongitudeText"
         android:layout_gravity="center_horizontal" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:layout_below="@+id/textView1"
-        android:text="TextView" />
+        >
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView1"
+            android:text="TextView" />
+    </ScrollView>
+
 
 </RelativeLayout>

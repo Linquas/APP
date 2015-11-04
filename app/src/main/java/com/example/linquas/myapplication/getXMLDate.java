@@ -52,9 +52,9 @@ public class getXMLDate extends Thread{
             }
 
             XMLparser XML = new XMLparser();
-            List<Location> list = XML.readXML(this.inputStream);
+//            List<Location> list = XML.readXML(this.inputStream);
             urlConnection.disconnect();
-//            List<Location> list = XML.readXML("a001",this.app);
+            List<Location> list = XML.readXML("a001",this.app);
             final StringBuilder sBuilder = new StringBuilder();
             if (list != null) {
                 for (int i = 0; i < list.size(); i++) {

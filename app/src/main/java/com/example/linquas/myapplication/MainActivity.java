@@ -1,26 +1,38 @@
 package com.example.linquas.myapplication;
 
-import android.content.Context;
-import android.content.res.AssetManager;
-import android.content.res.XmlResourceParser;
-import android.net.ConnectivityManager;
+
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.location.LocationProvider;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.os.Handler;
+
+import com.google.android.gms.maps.LocationSource;
 
 
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  implements
+         LocationListener , LocationSource {
 
     private Handler mHandler = new Handler();
+
+    // 記錄目前最新的位置
+    private android.location.Location currentLocation;
+
+    private OnLocationChangedListener mLocationChangerListener;
+
+    private LocationManager manager;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
 
 //        ConnectivityManager cm =(ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
 
+
+
+        manager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
         final TextView textView = (TextView) findViewById(R.id.textView2);
 
@@ -74,5 +89,119 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
+
+
+
+   @Override
+    public void onLocationChanged(android.location.Location location1) {
+        // 位置改變
+       if(mLocationChangerListener != null){
+           mLocationChangerListener.onLocationChanged(location1);
+       }
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+        String str = provider;
+        switch(status){
+            case LocationProvider.OUT_OF_SERVICE:
+                str += "定位功能失敗";
+                break;
+            case LocationProvider.TEMPORARILY_UNAVAILABLE:
+                str += "暫時無法定位";
+                break;
+        }
+        TextView gps = (TextView) findViewById(R.id.gpsStatus);
+        gps.setText(str);
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+        enableLocationUpdate();
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
+
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        enableLocationUpdate();
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        enableLocationUpdate();
+
+
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        disableLocationUpdate();
+
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        disableLocationUpdate();
+
+    }
+
+    private void enableLocationUpdate(){
+
+        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                || checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+            if(manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5,  this);
+            }else if(manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
+                manager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 5 ,  this);
+            }
+
+            TextView mLatitudeText = (TextView) findViewById(R.id.mLatitudeText);
+            TextView mLongitudeText = (TextView) findViewById(R.id.mLongitudeText);
+
+            currentLocation = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if(currentLocation!=null){
+                mLatitudeText.setText(String.valueOf(currentLocation.getLatitude()));
+                mLongitudeText.setText(String.valueOf(currentLocation.getLongitude()));
+            }else{
+                currentLocation = manager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                mLatitudeText.setText(String.valueOf(currentLocation.getLatitude()));
+                mLongitudeText.setText(String.valueOf(currentLocation.getLongitude()));
+            }
+        }
+    }
+
+    private void disableLocationUpdate(){
+        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                || checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            manager.removeUpdates(this);
+        }
+
+    }
+
+    @Override
+    public void activate(OnLocationChangedListener onLocationChangedListener) {
+        mLocationChangerListener = onLocationChangedListener;
+        enableLocationUpdate();
+    }
+
+    @Override
+    public void deactivate() {
+        mLocationChangerListener = null;
+        disableLocationUpdate();
+    }
 }
 
