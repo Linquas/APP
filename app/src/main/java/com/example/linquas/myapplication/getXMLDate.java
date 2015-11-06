@@ -1,13 +1,11 @@
 package com.example.linquas.myapplication;
 
 
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
-import android.os.Handler;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -22,6 +20,7 @@ public class getXMLDate extends Thread{
     private InputStreamReader in;
     private BufferedReader i;
     private AppCompatActivity app;
+    private List<Location> list;
 
     public void run(){
         String a = "http://opendata.cwb.gov.tw/opendataapi?dataid=O-A0001-001&authorizationkey=CWB-402F8B44-8664-45DF-BBDD-378D529BE8E8";
@@ -54,7 +53,7 @@ public class getXMLDate extends Thread{
             XMLparser XML = new XMLparser();
 //            List<Location> list = XML.readXML(this.inputStream);
             urlConnection.disconnect();
-            List<Location> list = XML.readXML("a001",this.app);
+            list = XML.readXML("a001",this.app);
             final StringBuilder sBuilder = new StringBuilder();
             if (list != null) {
                 for (int i = 0; i < list.size(); i++) {
@@ -100,4 +99,6 @@ public class getXMLDate extends Thread{
     public void setAPP(AppCompatActivity a){
         this.app = a;
     }
+    public void setList(List<Location> a){ this.list = a;}
+
 }

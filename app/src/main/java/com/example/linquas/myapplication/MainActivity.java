@@ -1,13 +1,17 @@
 package com.example.linquas.myapplication;
 
-
+// AIzaSyAPUZaXr3dXfVXB-MNmQkjXS-8g2KqStSo
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -15,9 +19,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.LocationSource;
+
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity  implements
@@ -32,13 +41,13 @@ public class MainActivity extends AppCompatActivity  implements
 
     private LocationManager manager;
 
+    private List<Location> location;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -48,10 +57,7 @@ public class MainActivity extends AppCompatActivity  implements
                         .setAction("Action", null).show();
             }
         });
-
 //        ConnectivityManager cm =(ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-
 
         manager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
@@ -61,7 +67,12 @@ public class MainActivity extends AppCompatActivity  implements
         x.setmHandler(mHandler);
         x.setTextView(textView);
         x.setAPP(this);
+        x.setList(location);
         x.start();
+
+
+
+
 
 
     }
@@ -88,7 +99,49 @@ public class MainActivity extends AppCompatActivity  implements
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        enableLocationUpdate();
+        getAddress y = new getAddress();
+        if(currentLocation!= null){
+            y.setLon(String.valueOf(currentLocation.getLongitude()));
+            y.setLat(String.valueOf(currentLocation.getLatitude()));
+            y.setmHandler(mHandler);
+            y.start();
+        }
+    }
 
+    @Override
+    public void onWindowFocusChanged(boolean focus) {
+        super.onWindowFocusChanged(focus);
+        // get the imageviews width and height here
+        ImageView img = (ImageView) findViewById(R.id.image1);
+        img.setImageResource(R.drawable.a1);
+//        setPic(R.drawable.a1, img);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        enableLocationUpdate();
+
+
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        disableLocationUpdate();
+
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        disableLocationUpdate();
+
+    }
 
 
 
@@ -126,43 +179,7 @@ public class MainActivity extends AppCompatActivity  implements
 
     }
 
-
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        enableLocationUpdate();
-
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        enableLocationUpdate();
-
-
-    }
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        disableLocationUpdate();
-
-    }
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-        disableLocationUpdate();
-
-    }
-
     private void enableLocationUpdate(){
-
-        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-                || checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-
             if(manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                 manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5,  this);
             }else if(manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
@@ -181,16 +198,9 @@ public class MainActivity extends AppCompatActivity  implements
                 mLatitudeText.setText(String.valueOf(currentLocation.getLatitude()));
                 mLongitudeText.setText(String.valueOf(currentLocation.getLongitude()));
             }
-        }
     }
 
-    private void disableLocationUpdate(){
-        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-                || checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            manager.removeUpdates(this);
-        }
-
-    }
+    private void disableLocationUpdate(){manager.removeUpdates(this);}
 
     @Override
     public void activate(OnLocationChangedListener onLocationChangedListener) {
@@ -203,5 +213,57 @@ public class MainActivity extends AppCompatActivity  implements
         mLocationChangerListener = null;
         disableLocationUpdate();
     }
+
+    private void setPic1(int id, ImageView destination) {
+        int targetW = destination.getWidth();
+        int targetH = destination.getHeight();
+        // Get the dimensions of the bitmap
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+
+        Bitmap b = BitmapFactory.decodeResource(this.getResources(), id);
+//        BitmapFactory.decodeFile(imagePath, bmOptions);
+        int photoW = bmOptions.outWidth;
+        int photoH = bmOptions.outHeight;
+        // Determine how much to scale down the image
+        float W,H;
+        W = (float)photoW/(float)targetW;
+        H = (float)photoH/(float)targetH;
+        float scaleFactor ;
+        if(W > H){
+            scaleFactor = H;
+        }else{
+            scaleFactor = W;
+        }
+        // Decode the image file into a Bitmap sized to fill the View;
+        int x =(int)(targetW * scaleFactor);
+        int y =(int)(targetH * scaleFactor);
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(b, x,  y, true);
+
+        destination.setImageBitmap(scaledBitmap);
+    }
+
+    private void setPic(int id, ImageView destination) {
+        int targetW = destination.getWidth();
+        int targetH = destination.getHeight();
+        // Get the dimensions of the bitmap
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        bmOptions.inJustDecodeBounds = true;
+        BitmapFactory.decodeResource(this.getResources(), id);
+        int photoW = bmOptions.outWidth;
+        int photoH = bmOptions.outHeight;
+
+        // Determine how much to scale down the image
+        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+
+        // Decode the image file into a Bitmap sized to fill the View
+        bmOptions.inJustDecodeBounds = false;
+        bmOptions.inSampleSize = scaleFactor;
+        bmOptions.inPurgeable = true;
+
+        Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(), id);
+        destination.setImageBitmap(bitmap);
+    }
+
+
 }
 

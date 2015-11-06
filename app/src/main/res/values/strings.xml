@@ -6,4 +6,5 @@
     <string name="service_not_available">service_not_available</string>
     <string name="invalid_lat_long_used">invalid_lat_long_used</string>
     <string name="google_play_service_missing">裝置沒有安裝Google Play服務</string>
+    <string name="title_activity_main2">Main2Activity</string>
 </resources>
