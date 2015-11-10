@@ -97,7 +97,7 @@ public class XMLparser {
         try {
 
 //            String t = inputStream.toString();
-            parser.setInput(inputStream,"UTF-8"); // 設置數據源編碼
+            parser.setInput(inputStream,null); // 設置數據源編碼
             int eventType = parser.getEventType();// 獲取事件類型
             Location currentLocation = null;
 

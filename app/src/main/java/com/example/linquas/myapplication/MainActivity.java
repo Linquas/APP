@@ -16,6 +16,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,15 +34,12 @@ public class MainActivity extends AppCompatActivity  implements
          LocationListener , LocationSource {
 
     private Handler mHandler = new Handler();
-
     // 記錄目前最新的位置
     private android.location.Location currentLocation;
-
     private OnLocationChangedListener mLocationChangerListener;
-
     private LocationManager manager;
-
     private List<Location> location;
+    private String county;
 
 
     @Override
@@ -69,11 +67,6 @@ public class MainActivity extends AppCompatActivity  implements
         x.setAPP(this);
         x.setList(location);
         x.start();
-
-
-
-
-
 
     }
 
@@ -108,6 +101,7 @@ public class MainActivity extends AppCompatActivity  implements
             y.setLon(String.valueOf(currentLocation.getLongitude()));
             y.setLat(String.valueOf(currentLocation.getLatitude()));
             y.setmHandler(mHandler);
+            y.getCounty(county);
             y.start();
         }
     }
