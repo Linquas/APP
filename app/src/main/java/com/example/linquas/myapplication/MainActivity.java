@@ -1,9 +1,6 @@
 package com.example.linquas.myapplication;
 
 // AIzaSyAPUZaXr3dXfVXB-MNmQkjXS-8g2KqStSo
-import android.Manifest;
-import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.LocationListener;
@@ -11,18 +8,11 @@ import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.LocationSource;
@@ -32,7 +22,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity  implements
          LocationListener , LocationSource {
-
+    private static final String TAG = "MainActivity";
     private Handler mHandler = new Handler();
     // 記錄目前最新的位置
     private android.location.Location currentLocation;
@@ -46,15 +36,9 @@ public class MainActivity extends AppCompatActivity  implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.e(TAG, ".onCreate()");
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
 //        ConnectivityManager cm =(ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         manager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -95,8 +79,14 @@ public class MainActivity extends AppCompatActivity  implements
     @Override
     protected void onStart() {
         super.onStart();
+        Log.i(TAG, " -- ON START -- ");
         enableLocationUpdate();
         getAddress y = new getAddress();
+
+        ImageView back = (ImageView) findViewById(R.id.background);
+//        setPic(R.drawable.back,back);
+        back.setImageResource(R.drawable.back);
+
         if(currentLocation!= null){
             y.setLon(String.valueOf(currentLocation.getLongitude()));
             y.setLat(String.valueOf(currentLocation.getLatitude()));
@@ -110,14 +100,15 @@ public class MainActivity extends AppCompatActivity  implements
     public void onWindowFocusChanged(boolean focus) {
         super.onWindowFocusChanged(focus);
         // get the imageviews width and height here
-        ImageView img = (ImageView) findViewById(R.id.image1);
-        img.setImageResource(R.drawable.a1);
+//        ImageView img = (ImageView) findViewById(R.id.image1);
+//        img.setImageResource(R.drawable.a1);
 //        setPic(R.drawable.a1, img);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        Log.e(TAG, " -- ON RESUME -- ");
         enableLocationUpdate();
 
 
@@ -125,6 +116,7 @@ public class MainActivity extends AppCompatActivity  implements
     @Override
     protected void onPause() {
         super.onPause();
+        Log.i(TAG, " -- ON PAUSE -- ");
 
         disableLocationUpdate();
 
@@ -132,6 +124,7 @@ public class MainActivity extends AppCompatActivity  implements
     @Override
     protected void onStop() {
         super.onStop();
+        Log.i(TAG, " -- ON STOP -- ");
 
         disableLocationUpdate();
 
@@ -180,17 +173,17 @@ public class MainActivity extends AppCompatActivity  implements
                 manager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 5 ,  this);
             }
 
-            TextView mLatitudeText = (TextView) findViewById(R.id.mLatitudeText);
-            TextView mLongitudeText = (TextView) findViewById(R.id.mLongitudeText);
+//            TextView mLatitudeText = (TextView) findViewById(R.id.mLatitudeText);
+//            TextView mLongitudeText = (TextView) findViewById(R.id.mLongitudeText);
 
             currentLocation = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             if(currentLocation!=null){
-                mLatitudeText.setText(String.valueOf(currentLocation.getLatitude()));
-                mLongitudeText.setText(String.valueOf(currentLocation.getLongitude()));
+//                mLatitudeText.setText(String.valueOf(currentLocation.getLatitude()));
+//                mLongitudeText.setText(String.valueOf(currentLocation.getLongitude()));
             }else{
                 currentLocation = manager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                mLatitudeText.setText(String.valueOf(currentLocation.getLatitude()));
-                mLongitudeText.setText(String.valueOf(currentLocation.getLongitude()));
+//                mLatitudeText.setText(String.valueOf(currentLocation.getLatitude()));
+//                mLongitudeText.setText(String.valueOf(currentLocation.getLongitude()));
             }
     }
 
@@ -206,34 +199,6 @@ public class MainActivity extends AppCompatActivity  implements
     public void deactivate() {
         mLocationChangerListener = null;
         disableLocationUpdate();
-    }
-
-    private void setPic1(int id, ImageView destination) {
-        int targetW = destination.getWidth();
-        int targetH = destination.getHeight();
-        // Get the dimensions of the bitmap
-        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-
-        Bitmap b = BitmapFactory.decodeResource(this.getResources(), id);
-//        BitmapFactory.decodeFile(imagePath, bmOptions);
-        int photoW = bmOptions.outWidth;
-        int photoH = bmOptions.outHeight;
-        // Determine how much to scale down the image
-        float W,H;
-        W = (float)photoW/(float)targetW;
-        H = (float)photoH/(float)targetH;
-        float scaleFactor ;
-        if(W > H){
-            scaleFactor = H;
-        }else{
-            scaleFactor = W;
-        }
-        // Decode the image file into a Bitmap sized to fill the View;
-        int x =(int)(targetW * scaleFactor);
-        int y =(int)(targetH * scaleFactor);
-        Bitmap scaledBitmap = Bitmap.createScaledBitmap(b, x,  y, true);
-
-        destination.setImageBitmap(scaledBitmap);
     }
 
     private void setPic(int id, ImageView destination) {
@@ -256,6 +221,214 @@ public class MainActivity extends AppCompatActivity  implements
 
         Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(), id);
         destination.setImageBitmap(bitmap);
+    }
+
+    public Bitmap fastblur(Bitmap sentBitmap, float scale, int radius) {
+
+        int width = Math.round(sentBitmap.getWidth() * scale);
+        int height = Math.round(sentBitmap.getHeight() * scale);
+        sentBitmap = Bitmap.createScaledBitmap(sentBitmap, width, height, false);
+
+        Bitmap bitmap = sentBitmap.copy(sentBitmap.getConfig(), true);
+
+        if (radius < 1) {
+            return (null);
+        }
+
+        int w = bitmap.getWidth();
+        int h = bitmap.getHeight();
+
+        int[] pix = new int[w * h];
+        Log.e("pix", w + " " + h + " " + pix.length);
+        bitmap.getPixels(pix, 0, w, 0, 0, w, h);
+
+        int wm = w - 1;
+        int hm = h - 1;
+        int wh = w * h;
+        int div = radius + radius + 1;
+
+        int r[] = new int[wh];
+        int g[] = new int[wh];
+        int b[] = new int[wh];
+        int rsum, gsum, bsum, x, y, i, p, yp, yi, yw;
+        int vmin[] = new int[Math.max(w, h)];
+
+        int divsum = (div + 1) >> 1;
+        divsum *= divsum;
+        int dv[] = new int[256 * divsum];
+        for (i = 0; i < 256 * divsum; i++) {
+            dv[i] = (i / divsum);
+        }
+
+        yw = yi = 0;
+
+        int[][] stack = new int[div][3];
+        int stackpointer;
+        int stackstart;
+        int[] sir;
+        int rbs;
+        int r1 = radius + 1;
+        int routsum, goutsum, boutsum;
+        int rinsum, ginsum, binsum;
+
+        for (y = 0; y < h; y++) {
+            rinsum = ginsum = binsum = routsum = goutsum = boutsum = rsum = gsum = bsum = 0;
+            for (i = -radius; i <= radius; i++) {
+                p = pix[yi + Math.min(wm, Math.max(i, 0))];
+                sir = stack[i + radius];
+                sir[0] = (p & 0xff0000) >> 16;
+                sir[1] = (p & 0x00ff00) >> 8;
+                sir[2] = (p & 0x0000ff);
+                rbs = r1 - Math.abs(i);
+                rsum += sir[0] * rbs;
+                gsum += sir[1] * rbs;
+                bsum += sir[2] * rbs;
+                if (i > 0) {
+                    rinsum += sir[0];
+                    ginsum += sir[1];
+                    binsum += sir[2];
+                } else {
+                    routsum += sir[0];
+                    goutsum += sir[1];
+                    boutsum += sir[2];
+                }
+            }
+            stackpointer = radius;
+
+            for (x = 0; x < w; x++) {
+
+                r[yi] = dv[rsum];
+                g[yi] = dv[gsum];
+                b[yi] = dv[bsum];
+
+                rsum -= routsum;
+                gsum -= goutsum;
+                bsum -= boutsum;
+
+                stackstart = stackpointer - radius + div;
+                sir = stack[stackstart % div];
+
+                routsum -= sir[0];
+                goutsum -= sir[1];
+                boutsum -= sir[2];
+
+                if (y == 0) {
+                    vmin[x] = Math.min(x + radius + 1, wm);
+                }
+                p = pix[yw + vmin[x]];
+
+                sir[0] = (p & 0xff0000) >> 16;
+                sir[1] = (p & 0x00ff00) >> 8;
+                sir[2] = (p & 0x0000ff);
+
+                rinsum += sir[0];
+                ginsum += sir[1];
+                binsum += sir[2];
+
+                rsum += rinsum;
+                gsum += ginsum;
+                bsum += binsum;
+
+                stackpointer = (stackpointer + 1) % div;
+                sir = stack[(stackpointer) % div];
+
+                routsum += sir[0];
+                goutsum += sir[1];
+                boutsum += sir[2];
+
+                rinsum -= sir[0];
+                ginsum -= sir[1];
+                binsum -= sir[2];
+
+                yi++;
+            }
+            yw += w;
+        }
+        for (x = 0; x < w; x++) {
+            rinsum = ginsum = binsum = routsum = goutsum = boutsum = rsum = gsum = bsum = 0;
+            yp = -radius * w;
+            for (i = -radius; i <= radius; i++) {
+                yi = Math.max(0, yp) + x;
+
+                sir = stack[i + radius];
+
+                sir[0] = r[yi];
+                sir[1] = g[yi];
+                sir[2] = b[yi];
+
+                rbs = r1 - Math.abs(i);
+
+                rsum += r[yi] * rbs;
+                gsum += g[yi] * rbs;
+                bsum += b[yi] * rbs;
+
+                if (i > 0) {
+                    rinsum += sir[0];
+                    ginsum += sir[1];
+                    binsum += sir[2];
+                } else {
+                    routsum += sir[0];
+                    goutsum += sir[1];
+                    boutsum += sir[2];
+                }
+
+                if (i < hm) {
+                    yp += w;
+                }
+            }
+            yi = x;
+            stackpointer = radius;
+            for (y = 0; y < h; y++) {
+                // Preserve alpha channel: ( 0xff000000 & pix[yi] )
+                pix[yi] = ( 0xff000000 & pix[yi] ) | ( dv[rsum] << 16 ) | ( dv[gsum] << 8 ) | dv[bsum];
+
+                rsum -= routsum;
+                gsum -= goutsum;
+                bsum -= boutsum;
+
+                stackstart = stackpointer - radius + div;
+                sir = stack[stackstart % div];
+
+                routsum -= sir[0];
+                goutsum -= sir[1];
+                boutsum -= sir[2];
+
+                if (x == 0) {
+                    vmin[y] = Math.min(y + r1, hm) * w;
+                }
+                p = x + vmin[y];
+
+                sir[0] = r[p];
+                sir[1] = g[p];
+                sir[2] = b[p];
+
+                rinsum += sir[0];
+                ginsum += sir[1];
+                binsum += sir[2];
+
+                rsum += rinsum;
+                gsum += ginsum;
+                bsum += binsum;
+
+                stackpointer = (stackpointer + 1) % div;
+                sir = stack[stackpointer];
+
+                routsum += sir[0];
+                goutsum += sir[1];
+                boutsum += sir[2];
+
+                rinsum -= sir[0];
+                ginsum -= sir[1];
+                binsum -= sir[2];
+
+                yi += w;
+            }
+        }
+
+        Log.e("pix", w + " " + h + " " + pix.length);
+        bitmap.setPixels(pix, 0, w, 0, 0, w, h);
+
+        return (bitmap);
     }
 
 
