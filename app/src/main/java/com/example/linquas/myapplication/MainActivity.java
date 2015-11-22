@@ -1,8 +1,10 @@
 package com.example.linquas.myapplication;
 
 // AIzaSyAPUZaXr3dXfVXB-MNmQkjXS-8g2KqStSo
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
@@ -12,6 +14,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -44,6 +48,20 @@ public class MainActivity extends AppCompatActivity  implements
         manager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
         final TextView textView = (TextView) findViewById(R.id.textView2);
+
+//        Typeface font = Typeface.createFromAsset(getAssets(),"fonts/Light.ttf");
+//
+//        TextView tempValue = (TextView)findViewById(R.id.temp_value);
+//        tempValue.setTypeface(font);
+//
+//        TextView humidValue = (TextView)findViewById(R.id.humid_value);
+//        humidValue.setTypeface(font);
+//
+//        TextView sunValue = (TextView)findViewById(R.id.sun_value);
+//        sunValue.setTypeface(font);
+
+        ImageButton btnGo = (ImageButton) findViewById(R.id.btnGo);
+        btnGo.setOnClickListener(btnGoOnClick);
 
         getXMLDate x = new getXMLDate();
         x.setmHandler(mHandler);
@@ -99,10 +117,7 @@ public class MainActivity extends AppCompatActivity  implements
     @Override
     public void onWindowFocusChanged(boolean focus) {
         super.onWindowFocusChanged(focus);
-        // get the imageviews width and height here
-//        ImageView img = (ImageView) findViewById(R.id.image1);
-//        img.setImageResource(R.drawable.a1);
-//        setPic(R.drawable.a1, img);
+
     }
 
     @Override
@@ -200,6 +215,14 @@ public class MainActivity extends AppCompatActivity  implements
         mLocationChangerListener = null;
         disableLocationUpdate();
     }
+
+    private View.OnClickListener btnGoOnClick = new View.OnClickListener(){
+        public void onClick(View v){
+            Intent it = new Intent();
+            it.setClass(MainActivity.this, Main2Activity.class);
+            startActivity(it);
+        }
+    };
 
     private void setPic(int id, ImageView destination) {
         int targetW = destination.getWidth();
