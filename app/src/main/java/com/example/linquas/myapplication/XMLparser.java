@@ -18,12 +18,12 @@ import java.util.List;
  */
 public class XMLparser {
 
-    public static List<Location> readXML(String xml,AppCompatActivity app) {
+    public static List<Location> readXML(int xml,AppCompatActivity app) {
         XmlResourceParser parser = null;
         List<Location> locations = null;
 
         try {
-            parser = app.getResources().getXml(R.xml.a001); // 設置數據源編碼
+            parser = app.getResources().getXml(xml); // 設置數據源編碼
             int eventType = parser.getEventType();// 獲取事件類型
             Location currentLocation = null;
 

@@ -1,7 +1,6 @@
 package com.example.linquas.myapplication;
 
-import android.os.Handler;
-import android.util.Log;
+import android.os.AsyncTask;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,20 +15,27 @@ import java.net.ProtocolException;
 import java.net.URL;
 
 /**
- * Created by Linquas on 2015/11/6.
+ * Created by Linquas on 2015/11/24.
  */
-public class getAddress extends Thread {
-    private Handler mHandler;
+public class getCounty extends AsyncTask<String , Integer , String> {
+
+    private String get;
     private String lon, lat, link;
     private InputStream inputStream;
-    private String get;
-
-
+    private MainActivity mainActivity;
+    private asyncTaskListener listener;
+    public getCounty(asyncTaskListener listener){
+        this.listener = listener;
+    }
 
     @Override
-    public void run(){
+    protected String doInBackground(String... params) {
+
+        lat = params[0];
+        lon = params[1];
+
         link = "https://maps.googleapis.com/maps/api/geocode/json?" +
-                "latlng="+lat+","+lon+"&key=AIzaSyAPUZaXr3dXfVXB-MNmQkjXS-8g2KqStSo";
+                "latlng="+lat+","+lon+"&key=AIzaSyAPUZaXr3dXfVXB-MNmQkjXS-8g2KqStSo&language=zh-tw";
         try{
             URL url = new URL(link);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -71,18 +77,11 @@ public class getAddress extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return get;
     }
 
-    public void setLon(String a){
-        this.lon = a;
+    @Override
+    protected void onPostExecute(String result) {
+        listener.updateConty(result);
     }
-    public void setLat(String a){
-        this.lat = a;
-    }
-    public void setCounty(String county){
-        this.get = county;
-    }
-    public void setmHandler(Handler mHandler){this.mHandler = mHandler;}
-
-
 }

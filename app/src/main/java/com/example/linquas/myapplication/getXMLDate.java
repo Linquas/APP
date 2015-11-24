@@ -66,7 +66,7 @@ public class getXMLDate extends Thread{
             XMLparser XML = new XMLparser();
 //            list = XML.readXML(this.inputStream);
 //            urlConnection.disconnect();
-            list = XML.readXML("a001",this.app);
+            list = XML.readXML(R.xml.a001,this.app);
             final StringBuilder sBuilder = new StringBuilder();
             if (list != null) {
                 for (int i = 0; i < list.size(); i++) {
@@ -78,21 +78,21 @@ public class getXMLDate extends Thread{
                     sBuilder.append("HUMD--" + location.getHumid() + "\n");
                 }
 
-                //textView.setText(sBuilder);
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        textView.setText(sBuilder);
-                    }
-                });
+
+//                mHandler.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        textView.setText(sBuilder);
+//                    }
+//                });
             } else {
-                //textView.setText("Fail......");
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        textView.setText("Fail......");
-                    }
-                });
+
+//                mHandler.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        textView.setText("Fail......");
+//                    }
+//                });
             }
             inputStream.close();
 
