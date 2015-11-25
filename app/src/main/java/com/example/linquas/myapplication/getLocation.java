@@ -3,7 +3,11 @@ package com.example.linquas.myapplication;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
@@ -40,24 +44,27 @@ public class getLocation extends AsyncTask< String , Integer , List<Location>> {
                 if (status == HttpURLConnection.HTTP_OK){
                     this.inputStream = urlConnection.getInputStream();
                 }
-//                BufferedReader reader1 = new BufferedReader(new InputStreamReader(inputStream));
-//                StringBuilder result = new StringBuilder();
-//                String line;
-//                while((line = reader1.readLine()) != null) {
-//                    result.append(line);
-//                }
-//                list = XMLparser.readXML(new ByteArrayInputStream(result.toString().getBytes()));
+                BufferedReader reader1 = new BufferedReader(new InputStreamReader(inputStream));
+                StringBuilder result = new StringBuilder();
+                String line;
+                while((line = reader1.readLine()) != null) {
+                    result.append(line);
+//                    System.out.println(line);
+                }
+                line = result.toString();
+
+                list = XMLparser.readXML(line);
 
             }finally{
-//                urlConnection.disconnect();
+                urlConnection.disconnect();
             }
 
             XMLparser XML = new XMLparser();
 //            list = XML.readXML(this.inputStream);
 //            urlConnection.disconnect();
-            list = XML.readXML(R.xml.a001,mainActivity);
-            list2 = XML.readXML(R.xml.a002,mainActivity);
-            list.addAll(list2);
+//            list = XML.readXML(R.xml.a001,mainActivity);
+//            list2 = XML.readXML(R.xml.a002,mainActivity);
+//            list.addAll(list2);
             inputStream.close();
 
         }catch (Exception e){

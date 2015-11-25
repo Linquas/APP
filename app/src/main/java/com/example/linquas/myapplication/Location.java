@@ -10,12 +10,12 @@ public class Location {
     private float lontitude;
     private float temp;
     private float humid;
-    private int elevation;
+    private float elevation;
     private String cityName;
     private String townName;
     private String ID;
 
-    public int getElevation() {
+    public float getElevation() {
         return elevation;
     }
 
@@ -23,7 +23,7 @@ public class Location {
         return ID;
     }
 
-    public void setElevation(int elevation) {
+    public void setElevation(float elevation) {
         this.elevation = elevation;
     }
 

@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity  implements
     private LocationManager manager;
     private List<Location> location;
     private String county = null;
+    private Intent nextView= new Intent();
 
 
     @Override
@@ -94,7 +95,6 @@ public class MainActivity extends AppCompatActivity  implements
         super.onStart();
         Log.i(TAG, " -- ON START -- ");
         enableLocationUpdate();
-        getAddress y = new getAddress();
 
         ImageView back = (ImageView) findViewById(R.id.background);
 //        setPic(R.drawable.back,back);
@@ -134,22 +134,42 @@ public class MainActivity extends AppCompatActivity  implements
 
     private View.OnClickListener btnGoOnClick = new View.OnClickListener(){
         public void onClick(View v){
-            Intent it = new Intent();
-            it.setClass(MainActivity.this, Main2Activity.class);
-            startActivity(it);
+            nextView.setClass(MainActivity.this, Main2Activity.class);
+            startActivity(nextView);
         }
     };
 
     @Override
     public void updateConty(String result) {
         county = result;
-        for(int i =0; i < location.size();i++){
+        int len = location.size();
+        float[] distance = new float[3];
+        distance[0]=0;
+        distance[1]=0;
+        distance[2]=0;
+        android.location.Location temp = new android.location.Location("tem");
+        float distances;
+        float a=2000000;
+        float temparature=-1;
+        for(int i =0; i < len;i++){
 //            System.out.println(location.get(i).getCityName());
             if(location.get(i).getCityName().equals(county)){
+                temp.setLatitude((double) location.get(i).getLattitude());
+                temp.setLongitude((double) location.get(i).getLontitude());
+                distances = currentLocation.distanceTo(temp);
+                if(a>distances){
+                    a = distances;
+                    temparature = location.get(i).getTemp();
+                }
+
                 System.out.println(location.get(i).getCityName());
                 System.out.println(String.valueOf(location.get(i).getTemp()));
             }
         }
+        Bundle send = new Bundle();
+        send.putString("County",county);
+        send.putFloat("TEMP",temparature);
+        nextView.putExtras(send);
 
     }
 
