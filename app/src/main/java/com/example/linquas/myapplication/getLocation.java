@@ -33,7 +33,7 @@ public class getLocation extends AsyncTask< String , Integer , List<Location>> {
     protected List<Location> doInBackground(String... params) {
 
         try{
-            URL url = new URL(LINK);
+            URL url = new URL(params[0]);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestProperty("Content-Type", " application/xml; charset=utf-8");
             urlConnection.setRequestMethod("GET");
@@ -59,7 +59,7 @@ public class getLocation extends AsyncTask< String , Integer , List<Location>> {
                 urlConnection.disconnect();
             }
 
-            XMLparser XML = new XMLparser();
+
 //            list = XML.readXML(this.inputStream);
 //            urlConnection.disconnect();
 //            list = XML.readXML(R.xml.a001,mainActivity);

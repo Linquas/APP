@@ -29,14 +29,18 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity  implements
          LocationListener , LocationSource , asyncTaskListener {
     private static final String TAG = "MainActivity";
-    private Handler mHandler = new Handler(Looper.getMainLooper());
     // 記錄目前最新的位置
     private android.location.Location currentLocation;
     private OnLocationChangedListener mLocationChangerListener;
     private LocationManager manager;
-    private List<Location> location;
+    private List<Location> location = null;
+
     private String county = null;
     private Intent nextView= new Intent();
+    private static String LINK = "http://opendata.cwb.gov.tw/opendataapi?dataid=O-A0001-001" +
+            "&authorizationkey=CWB-402F8B44-8664-45DF-BBDD-378D529BE8E8";
+    private static String LINK2 = "http://opendata.cwb.gov.tw/opendataapi?dataid=O-A0003-001" +
+            "&authorizationkey=CWB-402F8B44-8664-45DF-BBDD-378D529BE8E8";
 
 
     @Override
@@ -65,7 +69,10 @@ public class MainActivity extends AppCompatActivity  implements
         ImageButton btnGo = (ImageButton) findViewById(R.id.btnGo);
         btnGo.setOnClickListener(btnGoOnClick);
 
-        AsyncTask t = new getLocation(this).execute("a001");
+
+
+        AsyncTask t = new getLocation(this).execute(LINK);
+        AsyncTask t2 = new getLocation(this).execute(LINK2);
 
     }
 
@@ -99,7 +106,7 @@ public class MainActivity extends AppCompatActivity  implements
         ImageView back = (ImageView) findViewById(R.id.background);
 //        setPic(R.drawable.back,back);
         back.setImageResource(R.drawable.back);
-
+        //get location data (lat,lon)
         if(currentLocation!= null && county == null){
             AsyncTask<String, Integer, String> q = new getCounty(this).execute(
                     String.valueOf(currentLocation.getLatitude()),
@@ -141,6 +148,7 @@ public class MainActivity extends AppCompatActivity  implements
 
     @Override
     public void updateConty(String result) {
+        Log.i(TAG, " -- UPDATE COUNTY : "+result);
         county = result;
         int len = location.size();
         float[] distance = new float[3];
@@ -153,13 +161,14 @@ public class MainActivity extends AppCompatActivity  implements
         float temparature=-1;
         for(int i =0; i < len;i++){
 //            System.out.println(location.get(i).getCityName());
-            if(location.get(i).getCityName().equals(county)){
+            if(true){ //location.get(i).getCityName().equals(county)
                 temp.setLatitude((double) location.get(i).getLattitude());
                 temp.setLongitude((double) location.get(i).getLontitude());
                 distances = currentLocation.distanceTo(temp);
                 if(a>distances){
                     a = distances;
                     temparature = location.get(i).getTemp();
+                    Log.i(TAG, " -- NEAREST LOCATION : "+this.location.get(i).getCityName());
                 }
 
                 System.out.println(location.get(i).getCityName());
@@ -174,8 +183,18 @@ public class MainActivity extends AppCompatActivity  implements
     }
 
     public  void updateList(List<Location> result){
-        this.location = result;
+        if(this.location==null && result!=null){
+            this.location = result;
+            Log.i(TAG, " -- UPDATE LIST : "+this.location.size());
+        }else if(result!=null){
+            this.location.addAll(result);
+            Log.i(TAG, " -- UPDATE LIST : "+this.location.size());
+        }else{
+            Log.i(TAG, " -- UPDATE LIST : NO RESULT");
+        }
+
     }
+
 
     @Override
     public void onLocationChanged(android.location.Location location1) {
