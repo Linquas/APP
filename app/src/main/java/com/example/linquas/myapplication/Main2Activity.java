@@ -14,7 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class Main2Activity extends ActionBarActivity {
+public class Main2Activity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -40,7 +40,7 @@ public class Main2Activity extends ActionBarActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        String[] data = {"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","bbbbbbbbbbbbbbbbbbbbbbbbbbbb","cvccccccccccccccc","dddddddddddd"};
+        String[] data = {"a","b","c","d"};
         int[] a = {R.drawable.img1,R.drawable.img2,R.drawable.img3,R.drawable.img4};
         // specify an adapter (see also next example)
         mAdapter = new MyAdapter(data,a);

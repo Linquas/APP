@@ -143,6 +143,7 @@ public class MainActivity extends AppCompatActivity  implements
         public void onClick(View v){
             nextView.setClass(MainActivity.this, Main2Activity.class);
             startActivity(nextView);
+
         }
     };
 
