@@ -18,7 +18,7 @@ public class Main2Activity extends AppCompatActivity {
     private Intent nextView = new Intent();
     private static final String TAG = "Main2Activity";
     Context mainContect = this;
-
+    String[] data = {"0","1","2","3"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +52,6 @@ public class Main2Activity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        String[] data = {"a","b","c","d"};
         int[] a = {R.drawable.img1,R.drawable.img2,R.drawable.img3,R.drawable.img4};
         // specify an adapter (see also next example)
         mAdapter = new MyAdapter(data,a);
@@ -62,9 +61,16 @@ public class Main2Activity extends AppCompatActivity {
             public void onItemClick(View view, int position) {
 
                 Log.d(TAG,"Click Position: "+position);
-                nextView.setClass(mainContect, Main3Activity.class);
+//                nextView.setClass(mainContect, Main3Activity.class);
 
-                startActivity(nextView);
+                Intent nextView2 = new Intent();
+                nextView2.setClass(Main2Activity.this,Main3Activity.class);                          //設定傳送參數
+                Bundle bundle2 = new Bundle();
+
+                bundle2.putString("info",data[position].toString());
+
+                nextView2.putExtras(bundle2);                                                         //將參數放入
+                startActivity(nextView2);
             }
         });
 
