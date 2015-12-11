@@ -22,14 +22,15 @@
         android:id="@+id/blur"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:src="@drawable/buttom_blur" />
+        android:layout_alignParentBottom="true"/>
+        <!--android:src="@drawable/buttom_blur" />-->
+
     <ImageView
         android:id="@+id/blackBlur"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:paddingBottom="58dp"
+        android:layout_marginBottom="58dp"
         android:src="@drawable/black_blur" />
 
     <ImageButton
@@ -48,7 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
-        android:paddingBottom="70dp"
+        android:layout_marginBottom= "70dp"
         >
         <ImageView
             android:id="@+id/tem"

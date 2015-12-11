@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.linquas.myapplication.Main3Activity">
+
+    <ImageView
+        android:id="@+id/back3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/back3_1"/>
+
+    <ImageView
+        android:id="@+id/page3_textback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="29dp"
+        android:src="@drawable/page3_textback"/>
+
+    <ImageView
+        android:id="@+id/page3_titleblur"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/page3_textback"
+        android:src="@drawable/page3_titleblur"/>
+
+    <TextView
+        android:id="@+id/page3_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="65dp"
+        android:layout_marginBottom="280dp"
+        android:text="Test"/>
+
+</RelativeLayout>
