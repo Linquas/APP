@@ -82,6 +82,6 @@ public class getCounty extends AsyncTask<String , Integer , String> {
 
     @Override
     protected void onPostExecute(String result) {
-        listener.updateConty(result);
+        listener.updateCounty(result);
     }
 }

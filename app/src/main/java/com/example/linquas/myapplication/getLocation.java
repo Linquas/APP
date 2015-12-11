@@ -23,9 +23,9 @@ public class getLocation extends AsyncTask< String , Integer , List<Location>> {
     private static String LINK = "http://opendata.cwb.gov.tw/opendataapi?dataid=O-A0001-001" +
             "&authorizationkey=CWB-402F8B44-8664-45DF-BBDD-378D529BE8E8";
     private static String XML_FILE = "XML_FILE";
-    private MainActivity mainActivity;
+    private DevicesScanActivity mainActivity;
 
-    public getLocation(MainActivity mainActivity){
+    public getLocation(DevicesScanActivity mainActivity){
         this.mainActivity = mainActivity;
     }
 
