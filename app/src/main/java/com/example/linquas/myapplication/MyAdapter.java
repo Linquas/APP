@@ -14,10 +14,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private String[] mDataset;
     private int[] mImageID;
 
+    private static ItemClickListener mOnItemClickListener = null;
+
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         // each data item is just a string in this case
         public TextView mTextView;
         public ImageButton imageButton;
@@ -25,7 +27,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             super(v);
 //            mTextView = (TextView) v.findViewById(R.id.info_text);
             imageButton = (ImageButton) v.findViewById(R.id.info_image_btn);
+            imageButton.setOnClickListener(this);
+
         }
+        @Override
+        public void onClick(View v){
+            mOnItemClickListener.onItemClick(v,this.getLayoutPosition());
+        }
+    }
+
+    public void setmOnItemClickListener(ItemClickListener listener){
+        mOnItemClickListener = listener;
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
@@ -45,6 +57,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
         ViewHolder vh = new ViewHolder(v);
         return vh;
+    }
+
+    public  interface ItemClickListener{
+        void onItemClick(View view, int position);
     }
 
     // Replace the contents of a view (invoked by the layout manager)

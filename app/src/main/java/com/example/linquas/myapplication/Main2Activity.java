@@ -1,17 +1,23 @@
 package com.example.linquas.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 public class Main2Activity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private MyAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private Intent nextView = new Intent();
+    private static final String TAG = "Main2Activity";
+    Context mainContect = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +55,20 @@ public class Main2Activity extends AppCompatActivity {
         String[] data = {"a","b","c","d"};
         int[] a = {R.drawable.img1,R.drawable.img2,R.drawable.img3,R.drawable.img4};
         // specify an adapter (see also next example)
-
         mAdapter = new MyAdapter(data,a);
+
+        mAdapter.setmOnItemClickListener(new MyAdapter.ItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+
+                Log.d(TAG,"Click Position: "+position);
+                nextView.setClass(mainContect, Main3Activity.class);
+
+                startActivity(nextView);
+            }
+        });
+
+
         mRecyclerView.setAdapter(mAdapter);
 
 

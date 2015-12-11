@@ -16,7 +16,7 @@ public class MyAdaptor  extends RecyclerView.Adapter<MyAdaptor.ViewHolder> {
 
     private List<BluetoothDevice> sDeviceList;
 
-    private static OnRecyclerViewItemClickListener mOnItemClickListener = null;
+    protected static OnRecyclerViewItemClickListener mOnItemClickListener = null;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and

@@ -83,11 +83,10 @@ public class DevicesScanActivity extends AppCompatActivity implements
     }
 
     @Override
-    protected  void onStart(){
+    protected void onStart(){
         super.onStart();
 
     }
-
 
 
     @Override
