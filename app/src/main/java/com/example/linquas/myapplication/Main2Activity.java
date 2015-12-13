@@ -24,10 +24,12 @@ public class Main2Activity extends AppCompatActivity {
     private Intent nextView = new Intent();
     private static final String TAG = "Main2Activity";
     Context mainContect = this;
-    String[] data = {"0","1","2","3","4","5","6","7","8","9","10","11","12"};
+    String[] data = {"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22"};
     int[] a = { R.drawable.img0,R.drawable.img1,R.drawable.img2,R.drawable.img3,R.drawable.img4,
                 R.drawable.img5,R.drawable.img6,R.drawable.img7,R.drawable.img8,R.drawable.img9,
-                R.drawable.img10,R.drawable.img11,R.drawable.img12};
+                R.drawable.img10,R.drawable.img11,R.drawable.img12,R.drawable.img13,R.drawable.img14,
+                R.drawable.img15,R.drawable.img16,R.drawable.img17,R.drawable.img18,R.drawable.img19,
+                R.drawable.img20,R.drawable.img21,R.drawable.img22};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +94,7 @@ public class Main2Activity extends AppCompatActivity {
 
             while((line = buffreader.readLine()) != null){
                 int id = Integer.parseInt(buffreader.readLine());
+                int ap = Integer.parseInt(buffreader.readLine());       //save animal(0) or plant(1)
                 int top = Integer.parseInt(buffreader.readLine());      //save name max altitude into node
                 int bot = Integer.parseInt(buffreader.readLine());      //save name min altitude into node
                 int countries = Integer.parseInt(buffreader.readLine());  //read how many counties
