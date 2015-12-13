@@ -59,6 +59,7 @@
         android:layout_marginBottom="42dp"
         android:clickable="true"
         android:src="@drawable/plants_fab"
+        android:onClick="plantClick"
         app:backgroundTint="@color/white"
         />
 
@@ -73,6 +74,7 @@
         android:src="@drawable/animal_fab"
         app:backgroundTint="@color/white"
         android:layout_above="@id/plant_fab_all"
+        android:onClick="animalClick"
         />
 
 

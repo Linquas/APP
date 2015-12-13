@@ -30,12 +30,13 @@ public class Main2Activity extends AppCompatActivity {
                 R.drawable.img10,R.drawable.img11,R.drawable.img12,R.drawable.img13,R.drawable.img14,
                 R.drawable.img15,R.drawable.img16,R.drawable.img17,R.drawable.img18,R.drawable.img19,
                 R.drawable.img20,R.drawable.img21,R.drawable.img22};
+    int idListLength = 23;
+    int county = 18;
+    int altitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         int ids = 0;
-        int altitude;
-        int county = 18;
         float baseTemperature = 26, trueTemperature = 18;
         int tempC=0;
         super.onCreate(savedInstanceState);
@@ -67,7 +68,7 @@ public class Main2Activity extends AppCompatActivity {
         humid_value2.setText(HUMID_SENSOR+"%");
         sun_value2.setText(String.valueOf(altitude));
 
-        int[] idList = new int[12];
+        int[] idList = new int[idListLength];
 
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         // use this setting to improve performance if you know that changes
@@ -88,7 +89,7 @@ public class Main2Activity extends AppCompatActivity {
             String line;
             StringBuilder text = new StringBuilder();
 
-            for(int i=0;i<12;i++){
+            for(int i=0;i<idListLength;i++){
                 idList[i]=0;
             }
 
@@ -227,6 +228,137 @@ public class Main2Activity extends AppCompatActivity {
         return result;
 
 
+    }
+
+
+    public void plantClick(View view) {
+        int ids = 0;
+        int tempC=0;
+        int[] idList = new int[idListLength];
+
+        for(int i=0;i<idListLength;i++){
+            idList[i]=0;
+        }
+
+        try{
+            Resources res = getResources();
+            InputStream in_s = res.openRawResource(R.raw.creaturedata);
+
+            InputStreamReader inputreader = new InputStreamReader(in_s);
+            //FileReader fr = new FileReader("creatureData.txt");
+            BufferedReader buffreader = new BufferedReader(inputreader);
+            String line;
+            StringBuilder text = new StringBuilder();
+
+            for(int i=0;i<12;i++){
+                idList[i]=0;
+            }
+
+            while((line = buffreader.readLine()) != null){
+                int id = Integer.parseInt(buffreader.readLine());
+                int ap = Integer.parseInt(buffreader.readLine());       //save animal(0) or plant(1)
+                int top = Integer.parseInt(buffreader.readLine());      //save name max altitude into node
+                int bot = Integer.parseInt(buffreader.readLine());      //save name min altitude into node
+                int countries = Integer.parseInt(buffreader.readLine());  //read how many counties
+                int[] counties = new int[20];
+                for (int counter = 0; counter < countries; counter++) {
+                    int countyData = Integer.parseInt(buffreader.readLine());
+                    counties[countyData] = 1;            //turn to 1 means this county has this creature
+                }
+                buffreader.readLine();                                //read the change line
+                if (ap==1&&(altitude >= bot) && (altitude <= top) && (counties[county] == 1)) {
+                    ids++;
+                    idList[tempC]=id;
+                    tempC++;
+                }
+                text.append(line);
+                text.append('\n');
+            }
+
+            Log.d(TAG,"test"+text.toString());
+
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
+
+        String[] data2 = new String[ids];
+        int[] a2 = new int[ids];
+
+        for(int j=0;j<ids;j++){
+            int temp = idList[j];
+            data2[j]=data[temp];
+            a2[j]=a[temp];
+        }
+
+
+
+        mAdapter.swapData(data2,a2);
+        mAdapter.notifyDataSetChanged();
+    }
+    public void animalClick(View view) {
+        int ids = 0;
+        int tempC=0;
+        int[] idList = new int[idListLength];
+
+        for(int i=0;i<idListLength;i++){
+            idList[i]=0;
+        }
+
+        try{
+            Resources res = getResources();
+            InputStream in_s = res.openRawResource(R.raw.creaturedata);
+
+            InputStreamReader inputreader = new InputStreamReader(in_s);
+            //FileReader fr = new FileReader("creatureData.txt");
+            BufferedReader buffreader = new BufferedReader(inputreader);
+            String line;
+            StringBuilder text = new StringBuilder();
+
+            for(int i=0;i<12;i++){
+                idList[i]=0;
+            }
+
+            while((line = buffreader.readLine()) != null){
+                int id = Integer.parseInt(buffreader.readLine());
+                int ap = Integer.parseInt(buffreader.readLine());       //save animal(0) or plant(1)
+                int top = Integer.parseInt(buffreader.readLine());      //save name max altitude into node
+                int bot = Integer.parseInt(buffreader.readLine());      //save name min altitude into node
+                int countries = Integer.parseInt(buffreader.readLine());  //read how many counties
+                int[] counties = new int[20];
+                for (int counter = 0; counter < countries; counter++) {
+                    int countyData = Integer.parseInt(buffreader.readLine());
+                    counties[countyData] = 1;            //turn to 1 means this county has this creature
+                }
+                buffreader.readLine();                                //read the change line
+                if (ap==0&&(altitude >= bot) && (altitude <= top) && (counties[county] == 1)) {
+                    ids++;
+                    idList[tempC]=id;
+                    tempC++;
+                }
+                text.append(line);
+                text.append('\n');
+            }
+
+            Log.d(TAG,"test"+text.toString());
+
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
+
+        String[] data2 = new String[ids];
+        int[] a2 = new int[ids];
+
+        for(int j=0;j<ids;j++){
+            int temp = idList[j];
+            data2[j]=data[temp];
+            a2[j]=a[temp];
+        }
+
+
+        mAdapter.swapData(data2,a2);
+        mAdapter.notifyDataSetChanged();
     }
 
 }
