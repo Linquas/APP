@@ -78,4 +78,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public int getItemCount() {
         return mDataset.length;
     }
+
+    public void swapData(String[] myDataset, int[] imgID){
+        mDataset = myDataset;
+        mImageID = imgID;
+    }
 }

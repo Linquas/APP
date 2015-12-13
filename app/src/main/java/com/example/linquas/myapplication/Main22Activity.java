@@ -3,6 +3,7 @@ package com.example.linquas.myapplication;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,6 +27,9 @@ public class Main22Activity extends AppCompatActivity {
     int[] a = { R.drawable.img0,R.drawable.img1,R.drawable.img2,R.drawable.img3,R.drawable.img4,
             R.drawable.img5,R.drawable.img6,R.drawable.img7,R.drawable.img8,R.drawable.img9,
             R.drawable.img10,R.drawable.img11,R.drawable.img12};
+
+    FloatingActionButton animal_fab_all = (FloatingActionButton) findViewById(R.id.animal_fab_all);
+    FloatingActionButton plant_fab_all = (FloatingActionButton) findViewById(R.id.plant_fab_all);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,5 +67,29 @@ public class Main22Activity extends AppCompatActivity {
         });
 
         mRecyclerView.setAdapter(mAdapter);
+
+        animal_fab_all.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+
+
+                mAdapter.swapData();
+                mAdapter.notifyDataSetChanged();
+            }
+        });
+
+        plant_fab_all.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+
+
+                mAdapter.swapData();
+                mAdapter.notifyDataSetChanged();
+            }
+        });
     }
 }
