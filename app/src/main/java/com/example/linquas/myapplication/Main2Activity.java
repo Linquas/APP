@@ -58,6 +58,8 @@ public class Main2Activity extends AppCompatActivity {
         trueTemperature-=3;
         altitude = Math.abs((int) Math.round(100 * (baseTemperature - trueTemperature) / 0.6));
 
+        county = countyToNum(bundle.getString("County"));
+
         city.setText(get);
         temp_value2.setText(TEMP_SENSOR+"°C");
         humid_value2.setText(HUMID_SENSOR+"%");
@@ -151,6 +153,79 @@ public class Main2Activity extends AppCompatActivity {
 
 
     }
+
+    private int countyToNum(String county){
+        int result=0;
+        switch (county){
+            case "臺北市":
+                result=0;
+                break;
+            case "新北市":
+                result=1;
+                break;
+            case "桃園市":
+                result=2;
+                break;
+            case "台中市":
+                result=3;
+                break;
+            case "台南市":
+                result=4;
+                break;
+            case "高雄市":
+                result=5;
+                break;
+            case "基隆市":
+                result=6;
+                break;
+            case "新竹市":
+                result=7;
+                break;
+            case "嘉義市":
+                result=8;
+                break;
+            case "新竹縣":
+                result=9;
+                break;
+            case "苗栗縣":
+                result=10;
+                break;
+            case "彰化縣":
+                result=11;
+                break;
+            case "南投縣":
+                result=12;
+                break;
+            case "雲林縣":
+                result=13;
+                break;
+            case "嘉義縣":
+                result=14;
+                break;
+            case "屏東縣":
+                result=15;
+                break;
+            case "宜蘭縣":
+                result=16;
+                break;
+            case "花蓮縣":
+                result=17;
+                break;
+            case "臺東縣":
+                result=18;
+                break;
+            case "澎湖縣":
+                result=19;
+                break;
+            default:
+                result=18;
+                break;
+        }
+        return result;
+
+
+    }
+
 }
 
 
