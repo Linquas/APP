@@ -140,6 +140,8 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="MorSensor: "
+                android:textColor="@android:color/white"
+                android:textSize="10sp"
                 android:id="@+id/textView000"
                 android:minWidth="80dp"/>
 
@@ -148,6 +150,8 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="0"
+                android:textColor="@android:color/white"
+                android:textSize="10sp"
                 android:id="@+id/MorSensor_ID"
                 android:minWidth="60dp"/>
 
@@ -156,7 +160,8 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:visibility="invisible">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -179,7 +184,8 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:visibility="invisible">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -201,7 +207,8 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:visibility="invisible">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -241,7 +248,8 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:visibility="invisible">
 
             <TextView
                 android:layout_width="wrap_content"
