@@ -48,7 +48,7 @@
         android:layout_centerHorizontal="true"
         android:textSize="20sp"
         android:layout_marginTop="30dp"
-        android:text="CITY NAME"/>
+        android:text="動植物圖鑑"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/plant_fab_all"
