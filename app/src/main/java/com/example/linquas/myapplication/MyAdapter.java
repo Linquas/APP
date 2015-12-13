@@ -11,7 +11,7 @@ import android.widget.TextView;
  * Created by Linquas on 2015/11/27.
  */
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-    private String[] mDataset;
+    String[] mDataset;
     private int[] mImageID;
 
     private static ItemClickListener mOnItemClickListener = null;

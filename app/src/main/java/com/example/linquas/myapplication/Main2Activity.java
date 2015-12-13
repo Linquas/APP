@@ -49,16 +49,20 @@ public class Main2Activity extends AppCompatActivity {
         TextView sun_value2 = (TextView) findViewById(R.id.sun_value2);
 
         String get = bundle.getString("County");
+        baseTemperature = bundle.getFloat("AVG2TEMP");
         String UV_SENSOR = bundle.getString("UV_SENSOR");
         String TEMP_SENSOR = bundle.getString("TEMP_SENSOR");
         String HUMID_SENSOR = bundle.getString("HUMID_SENSOR");
 
+        trueTemperature = Float.parseFloat(bundle.getString("TEMP_SENSOR"));
+        trueTemperature-=3;
+        altitude = Math.abs((int) Math.round(100 * (baseTemperature - trueTemperature) / 0.6));
+
         city.setText(get);
         temp_value2.setText(TEMP_SENSOR+"°C");
         humid_value2.setText(HUMID_SENSOR+"%");
-        sun_value2.setText(UV_SENSOR);
+        sun_value2.setText(String.valueOf(altitude));
 
-        altitude = (int) Math.round(100 * (baseTemperature - trueTemperature) / 0.6);
         int[] idList = new int[12];
 
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
@@ -115,8 +119,8 @@ public class Main2Activity extends AppCompatActivity {
         int[] a2 = new int[ids];
 
         for(int j=0;j<ids;j++){
-            data2[j]=data[j];
             int temp = idList[j];
+            data2[j]=data[temp];
             a2[j]=a[temp];
         }
 
@@ -135,7 +139,7 @@ public class Main2Activity extends AppCompatActivity {
                 nextView2.setClass(Main2Activity.this,Main3Activity.class);                          //設定傳送參數
                 Bundle bundle2 = new Bundle();
 
-                bundle2.putString("info",data[position].toString());
+                bundle2.putString("info",mAdapter.mDataset[position].toString());
 
                 nextView2.putExtras(bundle2);                                                         //將參數放入
                 startActivity(nextView2);
