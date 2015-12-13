@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:fab="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:fitsSystemWindows="true"
-    tools:context="com.example.linquas.myapplication.Main2Activity">
+
+    tools:context="com.example.linquas.myapplication.Main22Activity">
 
     <ImageView
-        android:id="@+id/back2"
+        android:id="@+id/back22"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/back2"/>
     <ImageView
-        android:id="@+id/topLayer"
+        android:id="@+id/topLayer_all"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -21,7 +21,7 @@
         android:background="#00000000"
         />
     <ImageButton
-        android:id="@+id/search_btn"
+        android:id="@+id/search_btn_all"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -32,56 +32,17 @@
         />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/my_recycler_view"
-        android:layout_below="@id/topLayer"
+        android:id="@+id/my_recycler_view_all"
+        android:layout_below="@id/topLayer_all"
         android:divider="#ffff0000"
         android:dividerHeight="10dp"
         android:scrollbars="vertical"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-
-        />
-
-    <ImageView
-        android:id="@+id/status_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:src="@drawable/status_bar"
-        android:background="#00000000"
         />
 
     <TextView
-        android:id="@+id/temp_value2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:layout_marginTop="71dp"
-        android:layout_marginLeft="111dp"
-        android:text="27°C"
-        />
-
-    <TextView
-        android:id="@+id/humid_value2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:layout_marginTop="71dp"
-        android:layout_marginLeft="205dp"
-        android:text="27%"/>
-
-    <TextView
-        android:id="@+id/sun_value2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:layout_marginTop="71dp"
-        android:layout_marginLeft="312dp"
-        android:text="5"/>
-
-    <TextView
-        android:id="@+id/city"
+        android:id="@+id/city_all"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -90,7 +51,7 @@
         android:text="CITY NAME"/>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/plant_fab"
+        android:id="@+id/plant_fab_all"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -103,7 +64,7 @@
         />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/animal_fab"
+        android:id="@+id/animal_fab_all"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="16dp"
@@ -112,7 +73,11 @@
         android:clickable="true"
         android:src="@drawable/animal_fab"
         app:backgroundTint="@color/white"
-        android:layout_above="@id/plant_fab"
+        android:layout_above="@id/plant_fab_all"
         />
+
+
+
+
 
 </RelativeLayout>

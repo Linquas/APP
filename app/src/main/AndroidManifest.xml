@@ -23,7 +23,6 @@
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-
         <service
             android:name="tw.org.cic.morsensor.connection.BluetoothLeService"
             android:enabled="true" />
@@ -38,12 +37,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".Main2Activity"
             android:screenOrientation="portrait" />
@@ -51,12 +47,9 @@
             android:name=".Main3Activity"
             android:screenOrientation="portrait" />
 
+        <meta-data android:name="com.google.android.gms.version" />
 
-        <meta-data
-            android:name="com.google.android.gms.version"
-            />
-
-
+        <activity android:name=".Main22Activity"></activity>
     </application>
 
 </manifest>

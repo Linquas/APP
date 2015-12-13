@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity  {
     static String MorSensor_Version = "", Firmwave_Version = "";
 
     static TextView tv_Temp, tv_Humi, tv_UV;
-    static ImageButton btnGo;
+    static ImageButton btnGo, btnAll;
 
     private String county = null;
     private Intent nextView = new Intent();
@@ -135,6 +135,9 @@ public class MainActivity extends AppCompatActivity  {
 
         btnGo = (ImageButton) findViewById(R.id.btnGo);
         btnGo.setOnClickListener(btnGoOnClick);
+
+        btnAll = (ImageButton) findViewById(R.id.all_btn);
+        btnAll.setOnClickListener(btnAllOnClick);
 //        btnGo.setEnabled(false);
 
 
@@ -601,9 +604,16 @@ public class MainActivity extends AppCompatActivity  {
             nextView.setClass(MainActivity.this, Main2Activity.class);
             nextView.putExtra("send", bundle);
             startActivity(nextView);
-
         }
     };
+
+    private View.OnClickListener btnAllOnClick = new View.OnClickListener() {
+        public void onClick(View v) {
+            nextView.setClass(MainActivity.this, Main22Activity.class);
+            startActivity(nextView);
+        }
+    };
+
 
     @Override
     public void onWindowFocusChanged(boolean focus){
