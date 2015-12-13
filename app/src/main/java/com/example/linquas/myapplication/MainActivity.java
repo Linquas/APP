@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity  {
     private String county = null;
     private Intent nextView = new Intent();
     private static Bundle bundle;
+    private static float AVGTEMP;
 
 
 
@@ -113,6 +114,8 @@ public class MainActivity extends AppCompatActivity  {
         //Receive DeviceScanActivity DeviceAddress.
         final Intent intent = getIntent();
         mDeviceAddress = intent.getStringExtra(EXTRAS_DEVICE_ADDRESS);
+        bundle = intent.getBundleExtra("send");
+        AVGTEMP = bundle.getFloat("TEMP");
 
         Log.e(TAG, "mDeviceAddress:" + mDeviceAddress);
 
@@ -144,8 +147,8 @@ public class MainActivity extends AppCompatActivity  {
         TEMP = (TextView) findViewById(R.id.temp_value);
         HUMID = (TextView) findViewById(R.id.humid_value);
 
-        Intent it = getIntent();
-        bundle = it.getBundleExtra("send");
+//        Intent it = getIntent();
+//        bundle = it.getBundleExtra("send");
 
     }
 
@@ -581,6 +584,7 @@ public class MainActivity extends AppCompatActivity  {
         HUMID.setText(df.format((int) (data[1] * 1000) / 1000.0) + "%");
         DecimalFormat df2 = new DecimalFormat("0");
         bundle.putString("TEMP_SENSOR",df2.format((int) (data[0] * 1000) / 1000.0));
+        bundle.putFloat("AVG2TEMP",AVGTEMP);
         bundle.putString("HUMID_SENSOR",df2.format((int) (data[1] * 1000) / 1000.0));
     }
 
