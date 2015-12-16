@@ -21,6 +21,7 @@ import android.view.View;
 import com.google.android.gms.maps.LocationSource;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import tw.org.cic.morsensor.MorSensorConnection;
@@ -80,7 +81,7 @@ public class DevicesScanActivity extends AppCompatActivity implements
         // in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
 
-        sDeviceList.add(0,null);
+//        sDeviceList.add(0,null);
 
     }
 
@@ -171,13 +172,15 @@ public class DevicesScanActivity extends AppCompatActivity implements
 
         }
         @Override
-        public void onBluetoothDeviceListUpdate(List<BluetoothDevice> deviceList) {
+        public void onBluetoothDeviceListUpdate(final List<BluetoothDevice> deviceList) {
             Log.i(TAG, "onBluetoothDeviceListUpdate!");
-            sDeviceList = deviceList; // Update the device list here
-            sDeviceList.add(0,null);
+
+            sDeviceList.clear();
+            sDeviceList.addAll(deviceList);// Update the device list here
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    sDeviceList.add(0,null);
 //                    mLeDeviceListAdapter.notifyDataSetChanged();
                     mAdapter.swapData(sDeviceList);
                     mAdapter.notifyDataSetChanged();//更新devicelist
