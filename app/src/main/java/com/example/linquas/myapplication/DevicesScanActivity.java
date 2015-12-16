@@ -80,6 +80,8 @@ public class DevicesScanActivity extends AppCompatActivity implements
         // in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
 
+        sDeviceList.add(0,null);
+
     }
 
     @Override
@@ -108,17 +110,18 @@ public class DevicesScanActivity extends AppCompatActivity implements
         mAdapter.setmOnItemClickListener(new MyAdaptor.OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                if(county!=null){
+                if(position==0){
+                    nextView.setClass(mainContect,MainActivityDemo.class);
+                    startActivity(nextView);
+                }else if(county!=null){
                     Log.d(TAG,"Click Position: "+position);
                     if (mBT.isScanning()) {
                         ScanDevices(false);
                     }
                     mDeviceAddress = sDeviceList.get(position).getAddress();
                     Log.e(TAG, "mDeviceAddress: '" + mDeviceAddress + "'");
-
                     nextView.setClass(mainContect, MainActivity.class);
                     nextView.putExtra(MainActivity.EXTRAS_DEVICE_ADDRESS, mDeviceAddress);
-
                     startActivity(nextView);
                 }
 
@@ -171,6 +174,7 @@ public class DevicesScanActivity extends AppCompatActivity implements
         public void onBluetoothDeviceListUpdate(List<BluetoothDevice> deviceList) {
             Log.i(TAG, "onBluetoothDeviceListUpdate!");
             sDeviceList = deviceList; // Update the device list here
+            sDeviceList.add(0,null);
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {

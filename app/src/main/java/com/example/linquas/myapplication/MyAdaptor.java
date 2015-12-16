@@ -88,12 +88,16 @@ public class MyAdaptor  extends RecyclerView.Adapter<MyAdaptor.ViewHolder> {
 //        holder.imageButton.setImageResource(mImageID[position]);
 
         BluetoothDevice device = sDeviceList.get(position);
-        if (device.getName() != null && device.getName().length() > 0)
+        if(device == null){
+            holder.name.setText("DEMO");
+        }else if (device.getName() != null && device.getName().length() > 0){
             holder.name.setText(sDeviceList.get(position).getName());
-        else
+            holder.mTextView.setText(sDeviceList.get(position).getAddress());
+        }
+        else {
             holder.name.setText(R.string.unknown_device);
-
-        holder.mTextView.setText(sDeviceList.get(position).getAddress());
+            holder.mTextView.setText(sDeviceList.get(position).getAddress());
+        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)

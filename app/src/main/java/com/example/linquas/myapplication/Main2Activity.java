@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -33,6 +34,9 @@ public class Main2Activity extends AppCompatActivity {
     int idListLength = 23;
     int county = 18;
     int altitude;
+
+//    FloatingActionButton animal_fab = (FloatingActionButton) findViewById(R.id.animal_fab);
+//    FloatingActionButton plant_fab = (FloatingActionButton) findViewById(R.id.plant_fab);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
