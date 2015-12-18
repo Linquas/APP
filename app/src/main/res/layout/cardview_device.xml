@@ -20,7 +20,7 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="0dp">
+            android:padding="5dp">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -30,10 +30,13 @@
             <TextView android:id="@+id/device_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="24dp"/>
+                android:layout_centerHorizontal="true"
+                android:textSize="24dp"
+                />
             <TextView android:id="@+id/device_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:layout_below="@id/device_name"
                 android:textSize="12dp"/>
 

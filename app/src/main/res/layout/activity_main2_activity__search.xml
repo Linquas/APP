@@ -9,7 +9,7 @@
         android:id="@+id/search_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/search_page"/>
+        android:src="@drawable/search_page2"/>
 
     <ImageButton
         android:id="@+id/btn_search"

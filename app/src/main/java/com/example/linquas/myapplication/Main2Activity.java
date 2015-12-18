@@ -31,6 +31,7 @@ public class Main2Activity extends AppCompatActivity {
                 R.drawable.img10,R.drawable.img11,R.drawable.img12,R.drawable.img13,R.drawable.img14,
                 R.drawable.img15,R.drawable.img16,R.drawable.img17,R.drawable.img18,R.drawable.img19,
                 R.drawable.img20,R.drawable.img21,R.drawable.img22};
+    boolean[] valid = {true,true,false,false,false,true,true,true,true,false,false,true,true,false,false,false,false,true,false,false,false,true,false};
     int idListLength = 23;
     int county = 18;
     int altitude;
@@ -143,16 +144,22 @@ public class Main2Activity extends AppCompatActivity {
             public void onItemClick(View view, int position) {
 
                 Log.d(TAG,"Click Position: "+position);
-//                nextView.setClass(mainContect, Main3Activity.class);
+                int temp = Integer.parseInt(mAdapter.mDataset[position].toString());
+                if(valid[temp]){
+                    //                nextView.setClass(mainContect, Main3Activity.class);
 
-                Intent nextView2 = new Intent();
-                nextView2.setClass(Main2Activity.this,Main3Activity.class);                          //設定傳送參數
-                Bundle bundle2 = new Bundle();
+                    Intent nextView2 = new Intent();
+                    nextView2.setClass(Main2Activity.this,Main3Activity.class);                          //設定傳送參數
+                    Bundle bundle2 = new Bundle();
 
-                bundle2.putString("info",mAdapter.mDataset[position].toString());
+                    bundle2.putString("info",mAdapter.mDataset[position].toString());
 
-                nextView2.putExtras(bundle2);                                                         //將參數放入
-                startActivity(nextView2);
+                    nextView2.putExtras(bundle2);                                                         //將參數放入
+                    startActivity(nextView2);
+                }
+
+
+
             }
         });
 

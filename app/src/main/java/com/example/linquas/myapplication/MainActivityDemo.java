@@ -33,7 +33,7 @@ public class MainActivityDemo extends AppCompatActivity {
 
     private View.OnClickListener btnAllOnClick = new View.OnClickListener() {
         public void onClick(View v) {
-            nextView.setClass(MainActivityDemo.this, Main22Activity.class);
+            nextView.setClass(MainActivityDemo.this, Main2Activity_Search.class);
             startActivity(nextView);
         }
     };

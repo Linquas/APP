@@ -77,7 +77,7 @@
         android:layout_height="wrap_content"
         android:textSize="18sp"
         android:layout_marginTop="71dp"
-        android:layout_marginLeft="303dp"
+        android:layout_marginLeft="304dp"
         android:text="0.01"/>
 
     <TextView

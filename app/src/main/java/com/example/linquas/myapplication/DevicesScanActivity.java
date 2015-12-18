@@ -81,7 +81,8 @@ public class DevicesScanActivity extends AppCompatActivity implements
         // in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
 
-//        sDeviceList.add(0,null);
+        //增加DEMO選項
+        sDeviceList.add(0,null);
 
     }
 
