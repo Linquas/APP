@@ -172,8 +172,7 @@ public class MainActivity extends AppCompatActivity  {
     protected void onDestroy() {
         super.onDestroy();
         Log.i(TAG, " -- ON DESTROY -- ");
-        for (int i = 0; i < 3; i++)
-            MainActivity.stop_all_sensor();
+
     }
 
     // 宣告一個MorSensorConnectionCallback物件，並override裡面的方法
@@ -593,7 +592,7 @@ public class MainActivity extends AppCompatActivity  {
 
     public static void DisplayUVData(float[] data) {
         tv_UV.setText((int) (data[0] * 1000) / 1000.0 + ""); //UV
-        DecimalFormat df = new DecimalFormat("0.0");
+        DecimalFormat df = new DecimalFormat("0.00");
         UV.setText(df.format((int) (data[0] * 1000) / 1000.0));
         bundle.putString("UV_SENSOR",df.format((int) (data[0] * 1000) / 1000.0));
 
@@ -609,7 +608,7 @@ public class MainActivity extends AppCompatActivity  {
 
     private View.OnClickListener btnAllOnClick = new View.OnClickListener() {
         public void onClick(View v) {
-            nextView.setClass(MainActivity.this, Main22Activity.class);
+            nextView.setClass(MainActivity.this, Main2Activity_Search.class);
             startActivity(nextView);
         }
     };

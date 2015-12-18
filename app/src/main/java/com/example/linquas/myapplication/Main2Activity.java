@@ -66,7 +66,7 @@ public class Main2Activity extends AppCompatActivity {
         city.setText(get);
         temp_value2.setText(TEMP_SENSOR+"°C");
         humid_value2.setText(HUMID_SENSOR+"%");
-        sun_value2.setText(String.valueOf(altitude));
+        sun_value2.setText(UV_SENSOR);
 
         int[] idList = new int[idListLength];
 

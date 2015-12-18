@@ -59,7 +59,7 @@
         android:textSize="18sp"
         android:layout_marginTop="71dp"
         android:layout_marginLeft="111dp"
-        android:text="27°C"
+        android:text="--°C"
         />
 
     <TextView
@@ -69,7 +69,7 @@
         android:textSize="18sp"
         android:layout_marginTop="71dp"
         android:layout_marginLeft="205dp"
-        android:text="27%"/>
+        android:text="--%"/>
 
     <TextView
         android:id="@+id/sun_value2"
@@ -77,8 +77,8 @@
         android:layout_height="wrap_content"
         android:textSize="18sp"
         android:layout_marginTop="71dp"
-        android:layout_marginLeft="312dp"
-        android:text="5"/>
+        android:layout_marginLeft="303dp"
+        android:text="0.01"/>
 
     <TextView
         android:id="@+id/city"

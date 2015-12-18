@@ -65,7 +65,7 @@
             android:textSize="23sp"
             android:textColor="@color/white"
             android:layout_marginTop="3dp"
-            android:text="27°C"
+            android:text="--°C"
             />
 
         <ImageView
@@ -82,7 +82,7 @@
             android:textSize="23sp"
             android:textColor="@color/white"
             android:layout_marginTop="3dp"
-            android:text="30%"
+            android:text="--%"
             />
         <ImageView
             android:id="@+id/sun"
@@ -98,7 +98,7 @@
             android:layout_marginTop="3dp"
             android:textSize="23sp"
             android:textColor="@color/white"
-            android:text="4"
+            android:text="-.--"
             />
 
     </LinearLayout>

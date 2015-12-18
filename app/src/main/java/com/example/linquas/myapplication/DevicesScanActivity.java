@@ -88,12 +88,19 @@ public class DevicesScanActivity extends AppCompatActivity implements
 
     }
 
+    @Override
+    protected void onRestart(){
+        super.onRestart();
+    }
+
 
     @Override
     protected void onResume() {
         super.onResume();
         enableLocationUpdate();
+
         mBT = new MorSensorBleService(this, mBTCallback);
+
         // Initializes list view adapter.
 //        mLeDeviceListAdapter = new LeDeviceListAdapter();
 //        setListAdapter(mLeDeviceListAdapter);
@@ -164,7 +171,7 @@ public class DevicesScanActivity extends AppCompatActivity implements
         @Override
         public void onBluetoothDeviceFound(BluetoothDevice device, int rssi) {
             // 當找到一個藍芽裝置時
-            Log.e(TAG,"device:"+device+" rssi:"+rssi);
+//            Log.e(TAG,"device:"+device+" rssi:"+rssi);
 
         }
         @Override
