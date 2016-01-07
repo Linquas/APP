@@ -71,21 +71,6 @@ public class Main22Activity extends AppCompatActivity {
         });
 
         mRecyclerView.setAdapter(mAdapter);
-
-/*        animal_fab_all.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        plant_fab_all.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-        */
     }
 
     public void plantClick(View view) {

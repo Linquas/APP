@@ -21,11 +21,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     // you provide access to all the views for a data item in a view holder
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         // each data item is just a string in this case
-        public TextView mTextView;
         public ImageButton imageButton;
         public ViewHolder(View  v) {
             super(v);
-//            mTextView = (TextView) v.findViewById(R.id.info_text);
             imageButton = (ImageButton) v.findViewById(R.id.info_image_btn);
             imageButton.setOnClickListener(this);
 

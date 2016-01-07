@@ -98,13 +98,10 @@ public class XMLparser {
                 .newInstance();
         factory.setNamespaceAware(true);
         XmlPullParser parser = factory.newPullParser();
-//        XmlResourceParser parser = null;
         List<Location> locations = null;
 
 
         try {
-
-//            String t = inputStream.toString();
             parser.setInput(new StringReader(input)); // 設置數據源編碼
             int eventType = parser.getEventType();// 獲取事件類型
             Location currentLocation = null;

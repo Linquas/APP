@@ -59,12 +59,6 @@ public class getLocation extends AsyncTask< String , Integer , List<Location>> {
                 urlConnection.disconnect();
             }
 
-
-//            list = XML.readXML(this.inputStream);
-//            urlConnection.disconnect();
-//            list = XML.readXML(R.xml.a001,mainActivity);
-//            list2 = XML.readXML(R.xml.a002,mainActivity);
-//            list.addAll(list2);
             inputStream.close();
 
         }catch (Exception e){
