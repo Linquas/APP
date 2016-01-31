@@ -1,10 +1,8 @@
 package com.example.linquas.myapplication;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,11 +18,10 @@ import java.io.InputStreamReader;
 public class Main2Activity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
-    private MyAdapter mAdapter;
+    private searchResultAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private Intent nextView = new Intent();
     private static final String TAG = "Main2Activity";
-    Context mainContect = this;
+
     String[] data = {"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22"};
     int[] a = { R.drawable.img0,R.drawable.img1,R.drawable.img2,R.drawable.img3,R.drawable.img4,
                 R.drawable.img5,R.drawable.img6,R.drawable.img7,R.drawable.img8,R.drawable.img9,
@@ -36,13 +33,12 @@ public class Main2Activity extends AppCompatActivity {
     int county = 18;
     int altitude;
 
-//    FloatingActionButton animal_fab = (FloatingActionButton) findViewById(R.id.animal_fab);
-//    FloatingActionButton plant_fab = (FloatingActionButton) findViewById(R.id.plant_fab);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         int ids = 0;
-        float baseTemperature = 26, trueTemperature = 18;
+        float baseTemperature;
+        float trueTemperature;
         int tempC=0;
         super.onCreate(savedInstanceState);
 
@@ -137,14 +133,14 @@ public class Main2Activity extends AppCompatActivity {
 
         // specify an adapter (see also next example)
 
-        mAdapter = new MyAdapter(data2,a2);
+        mAdapter = new searchResultAdapter(data2,a2);
 
-        mAdapter.setmOnItemClickListener(new MyAdapter.ItemClickListener() {
+        mAdapter.setmOnItemClickListener(new searchResultAdapter.ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
 
                 Log.d(TAG,"Click Position: "+position);
-                int temp = Integer.parseInt(mAdapter.mDataset[position].toString());
+                int temp = Integer.parseInt(mAdapter.mDataset[position]);
                 if(valid[temp]){
                     //                nextView.setClass(mainContect, Main3Activity.class);
 
@@ -152,7 +148,7 @@ public class Main2Activity extends AppCompatActivity {
                     nextView2.setClass(Main2Activity.this,Main3Activity.class);                          //設定傳送參數
                     Bundle bundle2 = new Bundle();
 
-                    bundle2.putString("info",mAdapter.mDataset[position].toString());
+                    bundle2.putString("info",mAdapter.mDataset[position]);
 
                     nextView2.putExtras(bundle2);                                                         //將參數放入
                     startActivity(nextView2);
@@ -170,7 +166,7 @@ public class Main2Activity extends AppCompatActivity {
     }
 
     private int countyToNum(String county){
-        int result=0;
+        int result;
         switch (county){
             case "臺北市":
                 result=0;

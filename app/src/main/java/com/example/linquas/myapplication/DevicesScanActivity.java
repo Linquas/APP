@@ -21,7 +21,6 @@ import android.view.View;
 import com.google.android.gms.maps.LocationSource;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import tw.org.cic.morsensor.MorSensorConnection;
@@ -40,7 +39,7 @@ public class DevicesScanActivity extends AppCompatActivity implements
     MorSensorConnection mBT; //  = new MorSensorBleService(this);
 
     // 藍芽搜尋到的裝置清單
-    static List<BluetoothDevice> sDeviceList = new ArrayList<BluetoothDevice>();
+    static List<BluetoothDevice> sDeviceList = new ArrayList<>();
 
 //    private LeDeviceListAdapter mLeDeviceListAdapter;
 
@@ -48,7 +47,7 @@ public class DevicesScanActivity extends AppCompatActivity implements
     static String mDeviceAddress = "";
 
     private RecyclerView mRecyclerView;
-    private MyAdaptor mAdapter;
+    private deviceAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
 
@@ -114,9 +113,9 @@ public class DevicesScanActivity extends AppCompatActivity implements
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter (see also next example)
-        mAdapter = new MyAdaptor(sDeviceList);
+        mAdapter = new deviceAdapter(sDeviceList);
         //在rescycleview上增加按鍵監聽器
-        mAdapter.setmOnItemClickListener(new MyAdaptor.OnRecyclerViewItemClickListener() {
+        mAdapter.setmOnItemClickListener(new deviceAdapter.OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 if(position==0){
@@ -202,29 +201,23 @@ public class DevicesScanActivity extends AppCompatActivity implements
         Log.i(TAG, " -- UPDATE COUNTY : " + result);
         county = result;
         int len = location.size();
-        float[] distance = new float[3];
-        distance[0] = 0;
-        distance[1] = 0;
-        distance[2] = 0;
         android.location.Location temp = new android.location.Location("tem");
         float distances;
         float a = 2000000;
         float temparature = -1;
         for (int i = 0; i < len; i++) {
 //            System.out.println(location.get(i).getCityName());
-            if (true) { //location.get(i).getCityName().equals(county)
-                temp.setLatitude((double) location.get(i).getLattitude());
-                temp.setLongitude((double) location.get(i).getLontitude());
-                distances = currentLocation.distanceTo(temp);
-                if (a > distances) {
-                    a = distances;
-                    temparature = location.get(i).getTemp();
-                    Log.i(TAG, " -- NEAREST LOCATION : " + this.location.get(i).getCityName());
-                }
-
-                System.out.println(location.get(i).getCityName());
-                System.out.println(String.valueOf(location.get(i).getTemp()));
+             //location.get(i).getCityName().equals(county)
+            temp.setLatitude((double) location.get(i).getLattitude());
+            temp.setLongitude((double) location.get(i).getLontitude());
+            distances = currentLocation.distanceTo(temp);
+            if (a > distances) {
+                a = distances;
+                temparature = location.get(i).getTemp();
+                Log.i(TAG, " -- NEAREST LOCATION : " + this.location.get(i).getCityName());
             }
+            System.out.println(location.get(i).getCityName());
+            System.out.println(String.valueOf(location.get(i).getTemp()));
         }
         Bundle send = new Bundle();
         send.putString("County", county);
@@ -311,13 +304,8 @@ public class DevicesScanActivity extends AppCompatActivity implements
             return;
         }
         currentLocation = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        if (currentLocation != null) {
-//                mLatitudeText.setText(String.valueOf(currentLocation.getLatitude()));
-//                mLongitudeText.setText(String.valueOf(currentLocation.getLongitude()));
-        } else {
+        if (currentLocation == null) {
             currentLocation = manager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-//                mLatitudeText.setText(String.valueOf(currentLocation.getLatitude()));
-//                mLongitudeText.setText(String.valueOf(currentLocation.getLongitude()));
         }
     }
 

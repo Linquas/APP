@@ -16,13 +16,13 @@ import java.net.URL;
 
 /**
  * Created by Linquas on 2015/11/24.
+ * Use Google reverse geolocation service to get the name of the county of the current location
  */
 public class getCounty extends AsyncTask<String , Integer , String> {
 
     private String get;
     private String lon, lat, link;
     private InputStream inputStream;
-    private MainActivity mainActivity;
     private asyncTaskListener listener;
     public getCounty(asyncTaskListener listener){
         this.listener = listener;
@@ -65,6 +65,8 @@ public class getCounty extends AsyncTask<String , Integer , String> {
                 }
 
             } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
                 e.printStackTrace();
             } finally{
                 urlConnection.disconnect();

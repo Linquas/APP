@@ -1,6 +1,5 @@
 package com.example.linquas.myapplication;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -18,10 +17,9 @@ import java.io.InputStreamReader;
 public class Main22Activity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
-    private MyAdapter mAdapter;
+    private searchResultAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private static final String TAG = "Main22Activity";
-    Context mainContect = this;
     String[] data = {"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22"};
     int[] a = { R.drawable.img0,R.drawable.img1,R.drawable.img2,R.drawable.img3,R.drawable.img4,
             R.drawable.img5,R.drawable.img6,R.drawable.img7,R.drawable.img8,R.drawable.img9,
@@ -47,22 +45,22 @@ public class Main22Activity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new MyAdapter(data,a);
+        mAdapter = new searchResultAdapter(data,a);
 
-        mAdapter.setmOnItemClickListener(new MyAdapter.ItemClickListener() {
+        mAdapter.setmOnItemClickListener(new searchResultAdapter.ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
 
                 Log.d(TAG,"Click Position: "+position);
 //                nextView.setClass(mainContect, Main3Activity.class);
 
-                int temp = Integer.parseInt(mAdapter.mDataset[position].toString());
+                int temp = Integer.parseInt(mAdapter.mDataset[position]);
                 if(valid[temp]){
                     Intent nextView2 = new Intent();
                     nextView2.setClass(Main22Activity.this,Main3Activity.class);                          //設定傳送參數
                     Bundle bundle2 = new Bundle();
 
-                    bundle2.putString("info",mAdapter.mDataset[position].toString());
+                    bundle2.putString("info",mAdapter.mDataset[position]);
 
                     nextView2.putExtras(bundle2);                                                         //將參數放入
                     startActivity(nextView2);

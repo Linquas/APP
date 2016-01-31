@@ -17,9 +17,8 @@ import java.io.InputStreamReader;
 public class Main2ActivityDemo extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
-    private MyAdapter mAdapter;
+    private searchResultAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private Intent nextView = new Intent();
     private static final String TAG = "Main2ActivityDemo";
     int idListLength = 23;
     String[] data = {"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22"};
@@ -44,9 +43,9 @@ public class Main2ActivityDemo extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new MyAdapter(data,a);
+        mAdapter = new searchResultAdapter(data,a);
 
-        mAdapter.setmOnItemClickListener(new MyAdapter.ItemClickListener() {
+        mAdapter.setmOnItemClickListener(new searchResultAdapter.ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
 
@@ -56,7 +55,7 @@ public class Main2ActivityDemo extends AppCompatActivity {
                 nextView2.setClass(Main2ActivityDemo.this,Main3Activity.class);                          //設定傳送參數
                 Bundle bundle2 = new Bundle();
 
-                bundle2.putString("info",mAdapter.mDataset[position].toString());
+                bundle2.putString("info",mAdapter.mDataset[position]);
 
                 nextView2.putExtras(bundle2);                                                         //將參數放入
                 startActivity(nextView2);

@@ -5,12 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.TextView;
 
 /**
  * Created by Linquas on 2015/11/27.
+
  */
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+public class searchResultAdapter extends RecyclerView.Adapter<searchResultAdapter.ViewHolder> {
     String[] mDataset;
     private int[] mImageID;
 
@@ -39,15 +39,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter(String[] myDataset, int[] imgID) {
+    public searchResultAdapter(String[] myDataset, int[] imgID) {
         mDataset = myDataset;
         mImageID = imgID;
     }
 
     // Create new views (invoked by the layout manager)
     @Override
-    public MyAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                   int viewType) {
+    public searchResultAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
+                                                             int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.cardview, parent, false);

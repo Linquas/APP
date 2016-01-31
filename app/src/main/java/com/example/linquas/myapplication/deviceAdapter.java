@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by Linquas on 2015/12/11.
  */
-public class MyAdaptor  extends RecyclerView.Adapter<MyAdaptor.ViewHolder> {
+public class deviceAdapter  extends RecyclerView.Adapter<deviceAdapter.ViewHolder> {
 
     private List<BluetoothDevice> sDeviceList;
 
@@ -43,12 +43,12 @@ public class MyAdaptor  extends RecyclerView.Adapter<MyAdaptor.ViewHolder> {
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdaptor(List<BluetoothDevice> myDataset) {
+    public deviceAdapter(List<BluetoothDevice> myDataset) {
         sDeviceList = myDataset;
     }
 
     public void setmOnItemClickListener(OnRecyclerViewItemClickListener listener){
-        MyAdaptor.mOnItemClickListener = listener;
+        deviceAdapter.mOnItemClickListener = listener;
     }
 
     public  interface OnRecyclerViewItemClickListener{
@@ -68,7 +68,7 @@ public class MyAdaptor  extends RecyclerView.Adapter<MyAdaptor.ViewHolder> {
 
     // Create new views (invoked by the layout manager)
     @Override
-    public MyAdaptor.ViewHolder onCreateViewHolder(ViewGroup parent,
+    public deviceAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                    int viewType)  {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())

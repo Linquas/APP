@@ -1,6 +1,6 @@
 package com.example.linquas.myapplication;
 
-// AIzaSyAPUZaXr3dXfVXB-MNmQkjXS-8g2KqStSo
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothDevice;
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity  {
     short[] MorSensorLibraryVersion = {0, 0, 0};
 
     //Byte (127 ~ -128)
-    private static short TempID = 0;
+
     private static final short IMUID = 208;//0xD0 208
     private static final short THID = 128;//0x80 128
     private static final short UVID = 192;//0xC0 192
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity  {
     private static final short PIRID = 168;//0xA8 168
 
     public static final String EXTRAS_DEVICE_ADDRESS = "DEVICE_ADDRESS";
-    public static String mDeviceAddress = "123", mDeviceData = "";
+    public static String mDeviceAddress = "123";
 
     // 宣告MorSensor相關的物件
     MorSensorConnection mBT; //  = new MorSensorBleService(this);
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity  {
     static TextView tv_Temp, tv_Humi, tv_UV;
     static ImageButton btnGo, btnAll;
 
-    private String county = null;
+
     private Intent nextView = new Intent();
     private static Bundle bundle;
     private static float AVGTEMP;
@@ -138,8 +138,6 @@ public class MainActivity extends AppCompatActivity  {
 
         btnAll = (ImageButton) findViewById(R.id.all_btn);
         btnAll.setOnClickListener(btnAllOnClick);
-//        btnGo.setEnabled(false);
-
 
 
         tv_UV = (TextView) findViewById(R.id.tv_UV);
@@ -150,8 +148,7 @@ public class MainActivity extends AppCompatActivity  {
         TEMP = (TextView) findViewById(R.id.temp_value);
         HUMID = (TextView) findViewById(R.id.humid_value);
 
-//        Intent it = getIntent();
-//        bundle = it.getBundleExtra("send");
+
 
     }
 
@@ -306,7 +303,7 @@ public class MainActivity extends AppCompatActivity  {
             }
         }
 
-        List<String> stringList = new ArrayList<String>();
+        List<String> stringList = new ArrayList<>();
         for (MorSensor sensor : sensorList) {
             stringList.add(String.format("%d", sensor.getID()) + " (" + String.format("0X%02X", sensor.getID()) + ")");
         }
